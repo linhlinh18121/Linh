@@ -15,6 +15,7 @@
         ";
     }
 ;?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -23,15 +24,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Quản trị khoa</title>
+        <title>Sửa khoa</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+        
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.php">NHÀ SÁCH HVNH</a>
+            <a class="navbar-brand ps-3" href="index.php">Nhà sách HVNH</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -63,18 +65,22 @@
                             <a class="nav-link" href="index.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Quản trị hệ thống
-                            </a>
-                            <a class="nav-link" href="quan_tri_nguoi_dung.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                </a>
+                              <a class="nav-link collapsed" href="quan_tri_nguoi_dung.php" >
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Quản trị người dùng
-                            </a>
-                            <a class="nav-link" href="quan_tri_san_pham.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                
+                            </a>   
+                            <a class="nav-link collapsed" href="quan_tri_san_pham.php" >
+                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                                 Quản trị sản phẩm
+                                
                             </a>
-                            <a class="nav-link" href="quan_tri_don_hang.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                             </a>
+                             <a class="nav-link collapsed" href="quan_tri_don_hang.php" >
+                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                                 Quản trị đơn hàng
+                                
                             </a>
                             <a class="nav-link collapsed" href="quan_tri_khach_hang.php" >
                                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
@@ -86,7 +92,7 @@
                                 Quản trị khoa
                                 
                             </a>
-
+                        
                         </div>
                     </div>
                 </nav>
@@ -100,64 +106,44 @@
                             <li class="breadcrumb-item active">Quản trị khoa</li>
                         </ol>
                         <div class="card mb-4">
-                            
-                        </div>
-                        <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                Danh sách khoa 
+                                Danh sách khoa
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple">
-                                    <thead>
-                                        <tr>
-                                            <th style="text-align: center;">STT</th>
-                                            <th style="text-align: center;">Khoa ID</th>
-                                            <th style="text-align: center;">Tên khoa</th>
-                                            <th style="text-align: center">Sửa</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                           <th style="text-align: center;">STT</th>
-                                            <th style="text-align: center;">Khoa ID</th>
-                                            <th style="text-align: center;">Tên khoa</th>
-                                            <th style="text-align: center">Sửa</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                        <?php
-                                              // 1. Kết nối đến MÁY CHỦ DỮ LIỆU & ĐÉN CSDL mà cb muốn lấy/ thêm mới/ sửa/ xóa
-                                             include('../config.php');
+                                <?php
+                                    // Viết ra các câu lệnh để load dữ liệu và hiển thị lên Webpage; giúp người quản trị chỉ cần hiệu chỉnh những nội dung mà họ mong muốn
+                                        
+                                    // 1. Load file cấu hình để kết nối đến máy chủ CSDL, CSDL
+                                    include('../config.php');
 
-                                              // 2. Viết câu lệnh truy vấn lấy ra đươc DỮ LIỆU MONG MUỐN(NGƯỜI DÙNG đã lưu trong CSDL)
-                                              $sql = "
-                                                        SELECT * 
-                                                        FROM tbl_khoa
-                                                        ORDER BY khoa_id ASC";
-                                              // 3. Thực thi câu lệnh truy vấn (mục đích trả về DL các bạn cần)
-                                              $noi_dung_khoa= mysqli_query($ket_noi, $sql);
 
-                                              // 4. Hiên thị ra DL nà các bạn cần lấy được
-                                              $i=0;
-                                              while($row = mysqli_fetch_array($noi_dung_khoa))
-                                              {
-                                                $i++;
-                                        ;?>
-                                        <tr>
-                                            <td style="text-align: center;"><?php echo $i;?></td>
-                                            <td style="text-align: center;"><?php echo $row["khoa_id"];?></td>
-                                            <td style="text-align: center;"><?php echo $row["ten_khoa"];?></td>
-                                            <td style="text-align: center"><a href="khoa_sua.php?id=<?php echo $row['khoa_id'];?>"> Sửa </a></td>
-                                        </tr>
+                                    // 2. Viết câu lệnh truy vấn để lấy ra được DỮ LIỆU MONG MUỐN (TIN TỨC đã lưu trong CSDL)
+                                    $khoa_id = $_GET["id"];
 
-                                        <?php
-                                          }
-                                          // 5. Đóng kết nối sau khi sử dụng xong
-                                          mysqli_close($ket_noi);
-                                        ;?>
-                                    </tbody>
-                                </table>
+                                    $sql = "
+                                              SELECT * 
+                                              FROM tbl_khoa 
+                                              WHERE khoa_id = ".$khoa_id."
+                                              order by khoa_id ASC
+                                    ";
+
+                                    // 3. Thực thi câu lệnh truy vấn (mục đích trả về dữ liệu các bạn cần)
+                                    $khoa = mysqli_query($ket_noi, $sql);
+
+                                    // 4. Hiển thị ra dữ liệu mà các bạn vừa lấy được
+                                    $row = mysqli_fetch_array($khoa);
+                                ;?>
+                                <form method="POST" action="khoa_sua_thuc_hien.php" enctype="multipart/form-data">
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" id="txtTenkhoa" name="txtTenkhoa" placeholder="Tên khoa" value="<?php echo $row['ten_khoa'];?>" />
+                                        <label for="txtTenkhoa">Tên người dùng</label>
+                                    </div>   
+                                    <div class="mt-4 mb-0">
+                                        <input type="hidden" name="txtID" value="<?php echo $row['khoa_id'];?>">
+                                        <div class="d-grid"><button type="submit">Cập nhật</button></div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -165,7 +151,7 @@
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Nhà Sách Học Viện Ngân Hàng</div>
+                            <div class="text-muted">Nhà sách Học Viện Ngân Hàng</div>
                             
                         </div>
                     </div>
